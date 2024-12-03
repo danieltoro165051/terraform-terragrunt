@@ -1,0 +1,56 @@
+pipeline {
+    agent any // Specifies that the pipeline can run on any available agent
+
+    environment {
+        // Define environment variables if needed
+        MY_VAR = 'some_value'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout code from version control
+                git 'https://your-repo-url.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Commands to build your project
+                sh 'echo Building...'
+                sh './build.sh'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Commands to run tests
+                sh 'echo Testing...'
+                sh './test.sh'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Commands to deploy your project
+                sh 'echo Deploying...'
+                sh './deploy.sh'
+            }
+        }
+    }
+
+    post {
+        always {
+            // Steps to always run, regardless of the build result
+            echo 'This always runs'
+        }
+        success {
+            // Steps to run only if the build is successful
+            echo 'This runs only if successful'
+        }
+        failure {
+            // Steps to run only if the build fails
+            echo 'This runs only if failed'
+        }
+    }
+}
