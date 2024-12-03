@@ -10,7 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from version control
-                sh "git 'https://your-repo-url.git"
+                sh "git https://your-repo-url.git"
             }
         }
 
